@@ -23,7 +23,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     
         setUpViews()
-        
     }
     
     func setUpViews() {
@@ -39,13 +38,18 @@ class ViewController: UIViewController {
         view.addSubview(grayView)
         grayView.translatesAutoresizingMaskIntoConstraints = false
         
+        // constraints
         grayView.heightAnchor.constraint(equalToConstant: margin).isActive = true
-        
         grayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
         grayView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        
         grayView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
+        displayLabel.text = "Testing"
+        displayLabel.translatesAutoresizingMaskIntoConstraints = false
+        grayView.addSubview(displayLabel)
+        
+        displayLabel.centerXAnchor.constraint(equalTo: grayView.centerXAnchor).isActive = true
+        displayLabel.centerYAnchor.constraint(equalTo: grayView.centerYAnchor).isActive = true
     }
     
     func setUpTopLeftButton() {
