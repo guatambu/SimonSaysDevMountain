@@ -18,11 +18,22 @@ class ViewController: UIViewController {
     let displayLabel = UILabel()
     
     let margin: CGFloat = 50
+    
+    let game = GamePlay()
+    
+    var isGameOver = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
         setUpViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        game.startNewGame()
+        
     }
     
     func setUpViews() {
@@ -52,9 +63,33 @@ class ViewController: UIViewController {
         displayLabel.centerYAnchor.constraint(equalTo: grayView.centerYAnchor).isActive = true
     }
     
+    @objc func buttonTapped(_ sender: UIButton) {
+        
+        if isGameOver {
+            // start a new game
+            isGameOver = false
+            displayLabel.text = ""
+            game.startNewGame()
+            print("tell user which button to press")
+        }
+        
+        let response = game.userSelected(sender.tag)
+        
+        switch response {
+        case .correctAndContinue:
+            print("Correct!  tell the user they were correct")
+        case .correctAndNewRound:
+            print("Correct! tell the user what the next round should be")
+        case .incorrect:
+            print("sorry, you lost.  press any button to start again.")
+            isGameOver = true
+        }
+    }
+    
     func setUpTopLeftButton() {
         topLeftButton.tag = 0
         topLeftButton.backgroundColor = Constants.colors[topLeftButton.tag]
+        topLeftButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(topLeftButton)
         topLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,6 +129,7 @@ class ViewController: UIViewController {
     func setUpTopRightButton() {
         topRightButton.tag = 1
         topRightButton.backgroundColor = Constants.colors[topRightButton.tag]
+        topRightButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(topRightButton)
         topRightButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -133,6 +169,7 @@ class ViewController: UIViewController {
     func setUpBottomLeftButton() {
         bottomLeftButton.tag = 2
         bottomLeftButton.backgroundColor = Constants.colors[bottomLeftButton.tag]
+        bottomLeftButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(bottomLeftButton)
         bottomLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -184,6 +221,7 @@ class ViewController: UIViewController {
     func setUpBottomRightButton() {
         bottomRightButton.tag = 3
         bottomRightButton.backgroundColor = Constants.colors[bottomRightButton.tag]
+        bottomRightButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(bottomRightButton)
         bottomRightButton.translatesAutoresizingMaskIntoConstraints = false
         
