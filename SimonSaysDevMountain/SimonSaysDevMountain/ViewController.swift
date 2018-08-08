@@ -33,7 +33,45 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         game.startNewGame()
+        showSequenceOfPresses()
+    }
+    
+    func showSequenceOfPresses() {
+        view.isUserInteractionEnabled = false
         
+        var count = 1.0
+        
+        for move in game.correctMoves {
+            var colorAsString: String
+            switch move {
+            case 0:
+                colorAsString = "red"
+            case 1:
+                colorAsString = "yellow"
+            case 2:
+                colorAsString = "green"
+            case 3:
+                colorAsString = "blue"
+            default:
+                colorAsString = "unknown"
+            }
+            
+            show(colorAsString, after: count)
+            count += 1.0
+        }
+        view.isUserInteractionEnabled = true
+    }
+    
+    func  show(_ text: String, after delay: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            
+            self.displayLabel.text = text
+            self.displayLabel.alpha = 1.0
+            UIView.animate(withDuration: 1.0, animations: {
+                self.displayLabel.alpha = 0.0
+            })
+            
+        }
     }
     
     func setUpViews() {
@@ -55,7 +93,7 @@ class ViewController: UIViewController {
         grayView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         grayView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
-        displayLabel.text = "Testing"
+        displayLabel.text = ""
         displayLabel.translatesAutoresizingMaskIntoConstraints = false
         grayView.addSubview(displayLabel)
         
@@ -70,7 +108,7 @@ class ViewController: UIViewController {
             isGameOver = false
             displayLabel.text = ""
             game.startNewGame()
-            print("tell user which button to press")
+            showSequenceOfPresses()
         }
         
         let response = game.userSelected(sender.tag)
@@ -78,9 +116,14 @@ class ViewController: UIViewController {
         switch response {
         case .correctAndContinue:
             print("Correct!  tell the user they were correct")
+            show("Correct!", after: 0.0)
         case .correctAndNewRound:
             print("Correct! tell the user what the next round should be")
+            show("Correct! Time for another round!", after: 0.0)
+            showSequenceOfPresses()
+            
         case .incorrect:
+            displayLabel.alpha = 1.0
             print("sorry, you lost.  press any button to start again.")
             isGameOver = true
         }
