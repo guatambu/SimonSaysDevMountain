@@ -18,11 +18,60 @@ class ViewController: UIViewController {
     let displayLabel = UILabel()
     
     let margin: CGFloat = 50
+    
+    let game = GamePlay()
+    
+    var isGameOver = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
         setUpViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        game.startNewGame()
+        showSequenceOfPresses()
+    }
+    
+    func showSequenceOfPresses() {
+        view.isUserInteractionEnabled = false
+        
+        var count = 1.0
+        
+        for move in game.correctMoves {
+            var colorAsString: String
+            switch move {
+            case 0:
+                colorAsString = "red"
+            case 1:
+                colorAsString = "yellow"
+            case 2:
+                colorAsString = "green"
+            case 3:
+                colorAsString = "blue"
+            default:
+                colorAsString = "unknown"
+            }
+            
+            show(colorAsString, after: count)
+            count += 1.0
+        }
+        view.isUserInteractionEnabled = true
+    }
+    
+    func  show(_ text: String, after delay: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            
+            self.displayLabel.text = text
+            self.displayLabel.alpha = 1.0
+            UIView.animate(withDuration: 1.0, animations: {
+                self.displayLabel.alpha = 0.0
+            })
+            
+        }
     }
     
     func setUpViews() {
@@ -44,7 +93,7 @@ class ViewController: UIViewController {
         grayView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         grayView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
-        displayLabel.text = "Testing"
+        displayLabel.text = ""
         displayLabel.translatesAutoresizingMaskIntoConstraints = false
         grayView.addSubview(displayLabel)
         
@@ -52,8 +101,38 @@ class ViewController: UIViewController {
         displayLabel.centerYAnchor.constraint(equalTo: grayView.centerYAnchor).isActive = true
     }
     
+    @objc func buttonTapped(_ sender: UIButton) {
+        
+        if isGameOver {
+            // start a new game
+            isGameOver = false
+            displayLabel.text = ""
+            game.startNewGame()
+            showSequenceOfPresses()
+        }
+        
+        let response = game.userSelected(sender.tag)
+        
+        switch response {
+        case .correctAndContinue:
+            print("Correct!  tell the user they were correct")
+            show("Correct!", after: 0.0)
+        case .correctAndNewRound:
+            print("Correct! tell the user what the next round should be")
+            show("Correct! Time for another round!", after: 0.0)
+            showSequenceOfPresses()
+            
+        case .incorrect:
+            displayLabel.alpha = 1.0
+            print("sorry, you lost.  press any button to start again.")
+            isGameOver = true
+        }
+    }
+    
     func setUpTopLeftButton() {
-        topLeftButton.backgroundColor = UIColor.red
+        topLeftButton.tag = 0
+        topLeftButton.backgroundColor = Constants.colors[topLeftButton.tag]
+        topLeftButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(topLeftButton)
         topLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -91,7 +170,9 @@ class ViewController: UIViewController {
     }
     
     func setUpTopRightButton() {
-        topRightButton.backgroundColor = UIColor.yellow
+        topRightButton.tag = 1
+        topRightButton.backgroundColor = Constants.colors[topRightButton.tag]
+        topRightButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(topRightButton)
         topRightButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -129,7 +210,9 @@ class ViewController: UIViewController {
     }
     
     func setUpBottomLeftButton() {
-        bottomLeftButton.backgroundColor = UIColor.green
+        bottomLeftButton.tag = 2
+        bottomLeftButton.backgroundColor = Constants.colors[bottomLeftButton.tag]
+        bottomLeftButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(bottomLeftButton)
         bottomLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -179,7 +262,9 @@ class ViewController: UIViewController {
     }
     
     func setUpBottomRightButton() {
-        bottomRightButton.backgroundColor = UIColor.blue
+        bottomRightButton.tag = 3
+        bottomRightButton.backgroundColor = Constants.colors[bottomRightButton.tag]
+        bottomRightButton.addTarget(self, action: #selector(buttonTapped(_:)), for: UIControlEvents.touchUpInside)
         view.addSubview(bottomRightButton)
         bottomRightButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -227,4 +312,32 @@ class ViewController: UIViewController {
     }
 
 }
+
+extension UIButton {
+    open override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.lightGray : Constants.colors[self.tag]
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
