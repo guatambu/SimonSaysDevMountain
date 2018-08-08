@@ -75,7 +75,7 @@ class ViewController: UIViewController {
                            toItem: view,
                            attribute: NSLayoutAttribute.centerY,
                            multiplier: 1,
-                           constant: -margin/2).isActive = true
+                           constant: -margin).isActive = true
     }
     
     func setUpTopRightButton() {
@@ -171,7 +171,7 @@ class ViewController: UIViewController {
         view.addSubview(bottomRightButton)
         bottomRightButton.translatesAutoresizingMaskIntoConstraints = false
         
-        bottomRightButton.topAnchor.constraint(equalTo: topRightButton.bottomAnchor, constant: margin).isActive = true
+        bottomRightButton.topAnchor.constraint(equalTo: topLeftButton.bottomAnchor, constant: margin).isActive = true
         
         bottomRightButton.bottomAnchor.constraint(equalTo: grayView.topAnchor, constant: -margin).isActive = true
         
