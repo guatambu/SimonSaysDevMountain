@@ -37,7 +37,15 @@ class ViewController: UIViewController {
     func setUpGrayView() {
         grayView.backgroundColor = UIColor.gray
         view.addSubview(grayView)
-        grayView.frame = CGRect(x: 0, y: view.frame.height - margin, width: view.frame.width, height: margin)
+        grayView.translatesAutoresizingMaskIntoConstraints = false
+        
+        grayView.heightAnchor.constraint(equalToConstant: margin).isActive = true
+        
+        grayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        grayView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        
+        grayView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     func setUpTopLeftButton() {
