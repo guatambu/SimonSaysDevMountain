@@ -13,6 +13,7 @@
 		FA38F5E0211A5AF900C00AFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA38F5DF211A5AF900C00AFF /* Assets.xcassets */; };
 		FA38F5E3211A5AF900C00AFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA38F5E1211A5AF900C00AFF /* LaunchScreen.storyboard */; };
 		FA38F5EE211A5AF900C00AFF /* SimonSaysDevMountainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA38F5ED211A5AF900C00AFF /* SimonSaysDevMountainTests.swift */; };
+		FA38F5FA211B794F00C00AFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA38F5F9211B794F00C00AFF /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		FA38F5E9211A5AF900C00AFF /* SimonSaysDevMountainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimonSaysDevMountainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA38F5ED211A5AF900C00AFF /* SimonSaysDevMountainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimonSaysDevMountainTests.swift; sourceTree = "<group>"; };
 		FA38F5EF211A5AF900C00AFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA38F5F9211B794F00C00AFF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				FA38F5D8211A5AF900C00AFF /* AppDelegate.swift */,
 				FA38F5DA211A5AF900C00AFF /* ViewController.swift */,
 				FA38F5DC211A5AF900C00AFF /* Main.storyboard */,
+				FA38F5F9211B794F00C00AFF /* Constants.swift */,
 				FA38F5F8211A7CCA00C00AFF /* Resources */,
 			);
 			path = SimonSaysDevMountain;
@@ -209,6 +212,7 @@
 			files = (
 				FA38F5DB211A5AF900C00AFF /* ViewController.swift in Sources */,
 				FA38F5D9211A5AF900C00AFF /* AppDelegate.swift in Sources */,
+				FA38F5FA211B794F00C00AFF /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

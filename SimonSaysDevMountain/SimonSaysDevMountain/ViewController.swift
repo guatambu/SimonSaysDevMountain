@@ -53,7 +53,8 @@ class ViewController: UIViewController {
     }
     
     func setUpTopLeftButton() {
-        topLeftButton.backgroundColor = UIColor.red
+        topLeftButton.tag = 0
+        topLeftButton.backgroundColor = Constants.colors[topLeftButton.tag]
         view.addSubview(topLeftButton)
         topLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -91,7 +92,8 @@ class ViewController: UIViewController {
     }
     
     func setUpTopRightButton() {
-        topRightButton.backgroundColor = UIColor.yellow
+        topRightButton.tag = 1
+        topRightButton.backgroundColor = Constants.colors[topRightButton.tag]
         view.addSubview(topRightButton)
         topRightButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -129,7 +131,8 @@ class ViewController: UIViewController {
     }
     
     func setUpBottomLeftButton() {
-        bottomLeftButton.backgroundColor = UIColor.green
+        bottomLeftButton.tag = 2
+        bottomLeftButton.backgroundColor = Constants.colors[bottomLeftButton.tag]
         view.addSubview(bottomLeftButton)
         bottomLeftButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -179,7 +182,8 @@ class ViewController: UIViewController {
     }
     
     func setUpBottomRightButton() {
-        bottomRightButton.backgroundColor = UIColor.blue
+        bottomRightButton.tag = 3
+        bottomRightButton.backgroundColor = Constants.colors[bottomRightButton.tag]
         view.addSubview(bottomRightButton)
         bottomRightButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -227,4 +231,32 @@ class ViewController: UIViewController {
     }
 
 }
+
+extension UIButton {
+    open override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.lightGray : Constants.colors[self.tag]
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
